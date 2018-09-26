@@ -1,0 +1,4 @@
+// to是不包括后者的，生成p0~p5的padding值
+@for $i from 0 to 6{
+    .p#{$i}{padding:$i*5px};
+}
