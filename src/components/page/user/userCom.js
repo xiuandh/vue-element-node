@@ -1,3 +1,3 @@
 import Vue from 'vue'
-import User from './com.vue'
-Vue.component('user-common',User)
+import home from '@/components/common/home'
+Vue.component('my-home',home)

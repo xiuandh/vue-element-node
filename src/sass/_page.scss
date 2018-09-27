@@ -1,4 +1,27 @@
 
 a{text-decoration: none;}
 ul{list-style: none;padding:0;margin:0;}
+// classlist
+.amain{
+    margin-left:20px;
+    width:100%;
+}
+button{
+    margin:0;padding:0;
+}
+.minis{
+    width:60px;
+    height:30px;
+    padding:10px;
+    font-size:10px;
+}
+.btns{
+    margin-bottom: 10px;
+}
 
+// 密码 资料
+.form{margin-top:20px;}
+.span{
+    display: inline-block;
+    float:right;
+}

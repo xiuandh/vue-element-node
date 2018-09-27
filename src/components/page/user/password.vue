@@ -1,12 +1,12 @@
 <template>
-    <div class="pass">
-        <el-form class="el-col-18">
+    <div class="password">
+        <el-form class="el-col-14 form"  v-model="labelPosition" label-width='100px'>
             <el-form-item label="当前密码">
                 <el-input v-model="formLabelAlign.pass1"></el-input>
             </el-form-item>
             <el-form-item label="新密码">
                 <el-input v-model="formLabelAlign.pass2"></el-input>
-                <span >6到16个字符</span>
+                <span class="span">6到16个字符</span>
             </el-form-item>
             <el-form-item label="确认密码">
                 <el-input v-model="formLabelAlign.pass3"></el-input>
@@ -21,6 +21,7 @@
 export default {
     data () {
         return {
+            labelPosition:'right',
             formLabelAlign:{
                 pass1:'',
                 pass2:'',
@@ -33,4 +34,10 @@ export default {
     }
 }
 </script>
+<style lang="scss" scoped>
+.el-input{
+    width:76%;
+}
+</style>
+
 

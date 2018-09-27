@@ -1,5 +1,6 @@
 <template>
-	<el-row class="container">
+<div>
+	<div class="container">
 		<el-col :span="24" class="header" fixed>
 		    <el-col :span="20" class="logo">
 		     <img src="@/assets/logo.png" /><span>学校管理<i class="txt">系统</i></span>
@@ -16,20 +17,9 @@
 				<span>{{sysUserName}}</span>
 		    </el-col>
 		</el-col>
-
-		<el-col :span="24" class="main">
-			<!-- <aside>
-			<el-menu :default-active="$route.path" class="el-menu-vertical-demo" @open="handleopen" @close="handleclose" @select="handleselect"
-			theme="dark" unique-opened router>
-				<div v-for="(item,index) in $router.options.routes" v-if="!item.hidden" :key="index">
-					<el-submenu :index="index+''" v-if="!item.leaf">
-						<template slot="title"><i :class="item.iconCls"></i>{{item.name}}</template>
-						<el-menu-item v-for="(child,idx) in item.children" :key="idx" :index="child.path" v-if="!child.hidden">{{child.name}}</el-menu-item>
-					</el-submenu>
-					<el-menu-item v-if="item.leaf&&item.children.length>0" :index="item.children[0].path"><i :class="item.iconCls"></i>{{item.children[0].name}}</el-menu-item>
-				</div>
-			</el-menu>
-			</aside> -->
+		
+		<el-col :span="6" class="main">
+			<!-- 侧边栏 -->
 			<el-aside width="200px" style="background-color: rgb(238, 241, 246)">
                 <el-menu>
                     <el-submenu v-bind:index="index+''" v-for="(item,index) in items" :key="index">
@@ -42,20 +32,40 @@
             </el-aside>
 
 			<!-- 中心表格部分内容 -->
-			<app-main></app-main>
+			<!-- <app-main></app-main> -->
+			<!-- <router-view></router-view> -->
 
 		</el-col>
-	</el-row>
+	</div>
+	<!-- <div class=amain>
+		<el-main>
+	<el-table :data="tableData">
+		<el-table-column prop="date" label="日期" width="140">
+		</el-table-column>
+		<el-table-column prop="name" label="姓名" width="120">
+		</el-table-column>
+		<el-table-column prop="address" label="地址">
+		</el-table-column>
+	</el-table>
+	</el-main>
+	</div> -->
+</div>
 </template>
- 
+
 <script>
-import main from '@/components/page/home/main'
+// import main from '@/components/page/home/main'
    export default{
-	   components: {
-		   AppMain: main
-	   },
+	//    components: {
+		//    AppMain: main
+	//    },
 		data() {
+			const item = {
+        date: '2016-05-02',
+        name: '王小虎',
+        address: '上海市普陀区金沙江路 1518 弄'
+      };
 			return {  
+				tableData: Array(20).fill(item),
 				sysUserName:'王小虎',
 				items:[
 					{
@@ -107,6 +117,7 @@ import main from '@/components/page/home/main'
 			},
 			//跳转路由
 			routerGo(ad){
+				console.log(ad)
 				this.$router.push({name:ad})
 			}
 		}
@@ -161,15 +172,7 @@ import main from '@/components/page/home/main'
 		position: absolute;
 		top: 60px;
 		bottom: 0px;
-		overflow: hidden;
-		aside {
-		width: 230px;
-		float:left;
-		}
-		.amain{
-			margin-left:230px;
-			padding:0 50px;
-		}
+		
 	.content-container {
 		background: #f1f2f7;
 		position: absolute;

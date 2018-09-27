@@ -1,5 +1,6 @@
 <template>
     <div class="amain">
+        <!-- <my-home></my-home> -->
         <!-- height="250"头部固定 -->
         <el-table :data="tableData3" height="400" border style="width: 100%">
             <el-table-column prop="date" label="日期">

@@ -3,10 +3,12 @@ import Router from 'vue-router'
 Vue.use(Router)
 
 import login from '@/components/page/login/login'
-import home from '@/components/page/home/home'
 import password from '@/components/page/user/password'
 import data from '@/components/page/user/data'
-import com from '@/components/page/user/com'
+import home from '@/components/common/home'
+import classify from '@/components/page/goodslist/classify'
+import classlist from '@/components/page/goodslist/classlist'
+// import home from '@/components/page/home/home'
 
 export default new Router({
   routes: [
@@ -15,25 +17,37 @@ export default new Router({
       name: 'login',
       component: login
     },
+    // {
+    //   path: '/test',
+    //   name: 'test',
+    //   component: test
+    // },
     {
       path: '/home',
       name: 'home',
-      component: home
-    },
-    {
-      path: '/data',
-      name: 'data',
-      component: data
-    },
-    {
-      path: '/password',
-      name: 'password',
-      component: password
-    },
-    {
-      path: '/com',
-      name: 'com',
-      component: com
+      component: home,
+      children: [
+        {
+          path: '/data',
+          name: 'data',
+          component: data
+        },
+        {
+          path: '/password',
+          name: 'password',
+          component: password
+        },
+        {
+          path: '/classify',
+          name: 'classify',
+          component: classify
+        },
+        {
+          path: '/classlist',
+          name: 'classlist',
+          component: classlist
+        },
+      ]
     },
   ]
 })

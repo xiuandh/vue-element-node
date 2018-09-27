@@ -1,18 +1,11 @@
 <template>
     <div class="login">
         <el-form :model="ruleForm2" status-icon :rules="rules2" ref="ruleForm2" label-width="100px" class="demo-ruleForm el-col-18">
-            <!-- <el-form-item label="" prop="pass" class="logo">
-               <img src="@/assets/logo.png" />
-            </el-form-item>
-            <el-form-item label="" prop="pass" class="system">
-               <span>学校管理<i class="txt">系统</i></span>
-            </el-form-item> -->
             <div class="logo">
                 <img src="@/assets/logo.png" />
                 <span>学校管理<i class="txt">系统</i></span>
             </div>
             <el-form-item label="" prop="user">
-                <i class="el-icon-view" style="font-size:16px;"></i>
                 <el-input type="text" prefix-icon="el-icon-view" v-model="ruleForm2.user" autocomplete="off"></el-input>
             </el-form-item>
             <el-form-item label="" prop="pass">
@@ -79,6 +72,7 @@ export default {
 .login{
     margin:0 auto;
     .logo {
+        text-align:center;
         img{
             width:100px;
             margin-bottom: 20px;
