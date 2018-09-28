@@ -137,7 +137,13 @@ export default {
             //计算行中勾选是否相同，val为点击所带的参数
             // this.checkedCities = val ? cityOptions : [];
             this.isIndeterminate = false;
-      },
+        },
+    },
+    created(){
+        this.$axios.get('/api/productlist'
+        ).then(res=>{
+            console.log(res.data)
+        })
     }
 }
 </script>

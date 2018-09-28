@@ -9,7 +9,10 @@ import 'element-ui/lib/theme-chalk/index.css'
 Vue.use(ElementUi)
 
 import './sass/main.scss'
-import './components/page/user/userCom'
+
+//引入axios
+import axios from 'axios'
+Vue.prototype.$axios = axios
 
 Vue.config.productionTip = false
 

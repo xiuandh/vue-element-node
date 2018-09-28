@@ -13,11 +13,11 @@
                 <el-input type="password" prefix-icon="el-icon-view" v-model="ruleForm2.pass" autocomplete="off"></el-input>
             </el-form-item>
             <el-form-item>
-                <el-button type="primary" @click.native="submitForm('ruleForm2');goto()" >登录</el-button>
+                <el-button type="primary" @click.native.prevent="submitForm('ruleForm2')" >登录</el-button>
             </el-form-item>
             <el-form-item>
                 <el-checkbox v-model="checked" class="checkbox">记住密码</el-checkbox>
-                <a href="" class="forgetpass">忘记密码？</a>
+                <a href="" class="forgetpass">忘记密码？</a>    
             </el-form-item>
             
         </el-form>
@@ -26,45 +26,69 @@
 <script>
 export default {
     data() {
-      var validatePass = (rule, value, callback) => {
-        if (value === '') {
-          callback(new Error('请输入密码'));
-        } else {
-          if (this.ruleForm2.checkPass !== '') {
-              //此是为了验证两个密码是否一样
-            // this.$refs.ruleForm2.validateField('checkPass');
-          }
-          callback();
+        // 密码为长度6-10长的不包含空格的字段
+        var validatePass = (rule, value, callback) => {
+            if (value === '') {
+                callback(new Error('请输入密码'));
+            } else if(!/^\S{6,10}$/.test(value)) {
+                callback(new Error('输入的密码格式不对'));
+            }else{
+                callback();
+            }
         }
-      };
-      return {
-        ruleForm2: {
-          pass: '',
-          user: '',
-        },
-        checked:true,
-        rules2: {
-          pass: [
-            { validator: validatePass, trigger: 'blur' }
-          ],
-        }
-      };
+        // 输入的用户名必须为字母开头不包含特殊字符的长度为6-10的字段
+        var validateUser = (rule, value, callback)=>{
+            if(value === '') {
+                callback(new Error('请输入用户名'));
+            }else if(!/^[a-z][\w\-]{5,9}$/.test(value)) {
+                callback(new Error('输入的用户名格式不对'));
+            }else{
+                callback();
+            }
+        };
+        return {
+            ruleForm2: {
+                pass: '',
+                user: '',
+            },
+            checked:false,
+            rules2: {
+                user: [
+                    { validator: validateUser, trigger: 'blur' }
+                ],
+                pass: [
+                    { validator: validatePass, trigger: 'blur' }
+                ],
+            }
+        };
     },
     methods: {
         submitForm(formName) {
             this.$refs[formName].validate((valid) => {
-            if (valid) {
-                alert('submit!');
-            } else {
-                console.log('error submit!!');
-                return false;
-            }
+                this.$axios({
+                    url:'/api/login',
+                    method:'post',
+                    data:(()=>{
+                        let data ='';
+                        for(let key in this.ruleForm2){
+                            data += key + '=' + this.ruleForm2[key]+'&'
+                        }
+                        data = data.slice(0);
+                        console.log(data);
+                        return data;
+                    })(),
+                }).then(res=>{
+                    if(res.data == 'success'){
+                        alert('submit!');
+                        this.$router.push({name:'home',params:{name:this.ruleForm2.user}})
+                    }else if(res.data == 'error'){
+                        alert('error submit')
+                        return false;
+                    }
+                })
+                
             });
         },
-        goto() {
-            //跳转路由顺便传参给home组件
-            this.$router.push({name:'home',params:this.user})
-        }
     }
   }
 </script>

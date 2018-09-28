@@ -8,24 +8,20 @@ import data from '@/components/page/user/data'
 import home from '@/components/common/home'
 import classify from '@/components/page/goodslist/classify'
 import classlist from '@/components/page/goodslist/classlist'
-// import home from '@/components/page/home/home'
 
 export default new Router({
   routes: [
     {
       path: '/',
       name: 'login',
-      component: login
+      component: login,
+      props:true
     },
-    // {
-    //   path: '/test',
-    //   name: 'test',
-    //   component: test
-    // },
     {
       path: '/home',
       name: 'home',
       component: home,
+      props:true,
       children: [
         {
           path: '/data',
