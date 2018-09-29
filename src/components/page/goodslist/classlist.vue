@@ -26,14 +26,17 @@
         <el-table :data="tableData3" height="400" border style="width: 100%;text-align:center">
             <el-table-column prop="" type="selection" :indeterminate="isIndeterminate" v-model="checkAll" @change="handleCheckAllChange"></el-table-column>
             <el-table-column prop="date" label="ID"></el-table-column>
-            <el-table-column prop="date" label="日期"></el-table-column>
-            <el-table-column prop="name" label="姓名"></el-table-column>
-            <el-table-column prop="address" label="地址"></el-table-column>
+            <el-table-column prop="date" label="商品分类"></el-table-column>
+            <el-table-column prop="name" label="商品名称"></el-table-column>
+            <el-table-column prop="address" label="价格"></el-table-column>
+            <el-table-column prop="address" label="上新时间"></el-table-column>
+
             <el-table-column  label="发布状态">
                 <template slot-scope="scope">
                     <el-button type="primary" icon="el-icon-edit" class="minis">已发布</el-button>
                 </template>
             </el-table-column>
+
             <!-- fixed="right" 右边固定-->
             <el-table-column  label="操作"  width="160">
                 <template slot-scope="scope">
@@ -82,8 +85,8 @@
                 @size-change="handleSizeChange"
                 @current-change="handleCurrentChange"
                 :current-page="currentPage4"
-                :page-sizes="[100, 200, 300, 400]"
-                :page-size="100"
+                :page-sizes="[5, 8, 10, 15]"
+                :page-size="pageCount"
                 layout="total, sizes, prev, pager, next, jumper"
                 :total="totalPage">
             </el-pagination>
@@ -105,8 +108,9 @@ export default {
                 user:''
             },
             // 分页
-            currentPage4: 4,
-            totalPage: 400,
+            currentPage4: 2,
+            totalPage: 30,
+            pageCount: 5,
             //弹窗
             selectTable: {},
             dialogFormVisible: false,
@@ -115,7 +119,9 @@ export default {
             //复选框
             checked:false,
             checkAll: false,
-            isIndeterminate: true
+            isIndeterminate: true,
+            //表格数据
+            goodlist:[]
         }
     },
     methods: {
@@ -124,7 +130,9 @@ export default {
             console.log(`每页 ${val} 条`);
         },
         handleCurrentChange(val) {
-            console.log(`当前页: ${val}`);
+            this.currentPage4 = val
+            // console.log(this.currentPage4);
+            // console.log(`当前页: ${val}`);
         },
         handleEdit(){
             this.dialogFormVisible = true
@@ -138,12 +146,26 @@ export default {
             // this.checkedCities = val ? cityOptions : [];
             this.isIndeterminate = false;
         },
+        getData(){
+            let start=this.currentPage4;
+            let count=this.pageCount;
+            console.log(start)
+            this.$axios.get("/api/goods",{
+                params : {
+                    start:start,
+                    count:count
+                }
+            }).then(res=>{
+                console.log(res.data)
+                return this.goodlist = res.data;
+            })
+        }
     },
     created(){
-        this.$axios.get('/api/productlist'
-        ).then(res=>{
-            console.log(res.data)
-        })
+        this.$axios.get("/api/goods").then(res=>{
+            this.totalPage = res.data.length;
+        }),
+        this.getData();
     }
 }
 </script>
